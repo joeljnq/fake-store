@@ -1,0 +1,15 @@
+.product-wrapper{
+  background-color: aliceblue;
+}
+
+.product-img{
+  width: 20%;
+}
+
+.app{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1rem;
+
+}
