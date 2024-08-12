@@ -30,7 +30,12 @@ function App() {
           return (
             <div key={product.id} className='product-wrapper'>
               <img src={product.image} alt={product.title} className='product-img' />
+              <p>{product.title}</p>
+              <p>{product.category}</p>
+              <p>{product.price}</p>
+              <button> ver mas </button>
             </div>
+            
           )
         })}
       </main>
