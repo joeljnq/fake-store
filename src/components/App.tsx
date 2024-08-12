@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import '../assets/css/App.css'
-
+import { Link } from 'react-router-dom'
 interface productSchema {
   category: string,
   description: string,
@@ -22,15 +22,24 @@ function App() {
       .then(res => res.json())
       .then(res => setProducts(res))
   }, [apiURL])
-  console.log(products)
+
+  const handleProductInfo = (productID: number) => {
+    const url = `${window.location.origin}/product/${productID}`;
+    window.open(url, '_blank',);
+  }
   return (
     <>
       <main className='app'>
         {products.map((product) => {
           return (
             <div key={product.id} className='product-wrapper'>
-              <img src={product.image} alt={product.title} className='product-img' />
+              <button onClick={()=> handleProductInfo(product.id)} className='button-image'><img src={product.image} alt={product.title} className='product-img' /></button>
+              <p>{product.title}</p>
+              <p>{product.category}</p>
+              <p>{product.price}</p>
+              <button>add to cart</button>
             </div>
+            
           )
         })}
       </main>
