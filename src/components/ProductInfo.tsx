@@ -3,15 +3,12 @@ import { useParams } from "react-router-dom";
 
 const ProductInfo: React.FC = () => {
     const {productID} = useParams();
-    console.log(productID);
-    
     const [product, setProduct] = useState<any>(null);
     useEffect(()=>{
         fetch(`https://fakestoreapi.com/products/${productID}`)
         .then(res => res.json())
         .then(res => setProduct(res) )
     },[setProduct,productID])
-    console.log(product);
     return(
         <div>
             <h1>{product?.title}</h1>
