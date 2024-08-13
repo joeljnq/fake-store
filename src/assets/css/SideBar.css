@@ -1,0 +1,33 @@
+aside{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25%;
+    background-color: white;
+    padding: 20px;
+}
+
+.product-wrapperSB{
+    display: flex;
+    width: 80% ;
+    
+}
+
+.product-image {
+    width: 20%;
+    height: 20%;
+}
+
+.info-wrapper{
+    width: 50%;
+    margin-left: 10px;
+}
+
+.pricing{
+    font-weight: bolder;
+}
+
+.garbage{
+    width: 5%;
+    height: 5%;
+}
