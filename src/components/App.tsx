@@ -27,38 +27,43 @@ function App() {
       .then(res => setProducts(res))
   }, [apiURL])
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch('https://fakestoreapi.com/products/categories')
-    .then(res => res.json())
-    .then(res => setCategories(res))
-  },[])
+      .then(res => res.json())
+      .then(res => setCategories(res))
+  }, [])
+
+  useEffect(()=>{
+    localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
+  },[cartProducts])
 
   const handleProductInfo = (productID: number) => {
     const url = `${window.location.origin}/product/${productID}`;
     window.open(url, '_blank',);
   }
-  
+
   const handleAddProduct = (product: productSchema) => {
     setCartProducts(prevState => [...prevState, product])
   }
   return (
     <>
-    <NavBar categories={categories} onHandleSideBar={setOpenSideBar}/>
+      <NavBar categories={categories} onHandleSideBar={setOpenSideBar} quantityProducts={cartProducts.length} />
       <main className='app'>
         {products.map((product) => {
           return (
             <div key={product.id} className='product-wrapper'>
-              <button onClick={()=> handleProductInfo(product.id)} className='button-image'><img src={product.image} alt={product.title} className='product-img' /></button>
+              <button onClick={() => handleProductInfo(product.id)} className='button-image'><img src={product.image} alt={product.title} className='product-img' /></button>
               <p>{product.title}</p>
               <div className='price-wrapper'>
-              <p>€{product.price}</p>
-              <button onClick={()=> handleAddProduct(product)} >add to cart</button>
+                <p>€{product.price}</p>
+                <button onClick={() => handleAddProduct(product)} >add to cart</button>
               </div>
             </div>
           )
         })}
-        {openSideBar &&  <SideBar products={cartProducts} onCloseSideBar={setOpenSideBar}/>}
       </main>
+      {openSideBar && <SideBar products={cartProducts} onCloseSideBar={setOpenSideBar} onChangeCartProducts={setCartProducts}/>}
+
     </>
   )
 }

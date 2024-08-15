@@ -15,9 +15,14 @@ nav{
     list-style: none;
 }
 
+#nameStore{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000000;
+}
 .shopping-cart{
-    width: 1%;
-    height: 1%;
+    width: 100%;
+    height: 100%;
 }
 
 .categories > li {
@@ -25,4 +30,24 @@ nav{
     height: 50%;
     text-align: center;
     margin: auto;
+}
+
+#cart-button{
+    background-color: #F7F7F8;
+    border: none;
+    width: 60%;
+    height: 1%;
+    cursor: pointer;
+}
+
+#cart-wrapper{
+    width: 3%;
+    display: flex;
+    align-items: center;
+    max-height: 3%;
+}
+
+#cart-wrapper > p{
+    text-align: end;
+    margin-top: 70%;
 }
