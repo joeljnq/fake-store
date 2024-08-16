@@ -7,7 +7,6 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ categories, onHandleSideBar,quantityProducts }) => {
-    console.log(categories);
     return (
         <nav>
             <ul className="categories">
