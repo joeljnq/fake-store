@@ -1,6 +1,6 @@
 import {z} from 'zod'
 
- const productsSchema = z.object({
+ export const productsSchema = z.object({
     category: z.string(),
     description: z.string(),
     id: z.number().positive(),

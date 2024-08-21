@@ -19,7 +19,7 @@ function App() {
   const [products, setProducts] = useState<productSchema[]>([])
   const [categories, setCategories] = useState<string[]>([])
   const [openSideBar, setOpenSideBar] = useState<boolean>(false)
-  const [cartProducts, setCartProducts] = useState<productSchema[]>([])
+  const [cartProducts, setCartProducts] = useState<productSchema[]>(JSON.parse(localStorage.getItem('cart') || '[]'))
   const apiURL = import.meta.env.VITE_API_URL
   useEffect(() => {
     fetch(apiURL)
@@ -34,7 +34,13 @@ function App() {
   }, [])
 
   useEffect(()=>{
-    localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
+    const ls = cartProducts.map(cartProduct => {
+      return {
+        ...cartProduct,
+        quantity: 1
+      }
+    })
+    localStorage.setItem('cart', JSON.stringify(ls))
   },[cartProducts])
 
   const handleProductInfo = (productID: number) => {
