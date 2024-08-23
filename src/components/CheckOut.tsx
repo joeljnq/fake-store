@@ -1,42 +1,38 @@
-import React from 'react';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-
+import React from "react";
+import '../assets/css/checkout.css'
+import StripeProvider from "./StripeProvider";
 const CheckOut: React.FC = () => {
-  const stripe = useStripe();
-  const elements = useElements();
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (!stripe || !elements) {
-      return;
-    }
-
-    const cardElement = elements.getElement(CardElement);
-
-    if (cardElement) {
-      const { error, paymentMethod } = await stripe.createPaymentMethod({
-        type: 'card',
-        card: cardElement,
-      });
-
-      if (error) {
-        console.error('[error]', error);
-      } else {
-        console.log('[PaymentMethod]', paymentMethod);
-        // Aquí puedes enviar `paymentMethod.id` a tu backend para procesar el pago.
-      }
-    }
-  };
-
+  const [buyStatus, setBuyStatus] = React.useState(false);
+  if (buyStatus) {
+    localStorage.removeItem('cart');
+    const url = `${window.location.origin}`;
+    window.location.href = url;
+    
+  }
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement />
-      <button type="submit" disabled={!stripe}>
-        Pagar
-      </button>
-    </form>
-  );
-};
+    <>
+      <h1>Checkout</h1>
+      <div className="checkout-wrapper">
+        <form id="form-checkout">
+          <label htmlFor="name">Name:</label>
+          <input type="text" id="name" name="name" required></input>
+          <label htmlFor="email">Email:</label>
+          <input type="email" id="email" name="email" required></input>
+          <label htmlFor="address">Address:</label>
+          <input type="text" id="address" name="address" required></input>
+          <label htmlFor="city">City:</label>
+          <input type="text" id="city" name="city" required></input>
+          <label htmlFor="zip">Zip:</label>
+          <input type="text" id="zip" name="zip" required></input>
+          <label htmlFor="country">Country:</label>
+          <input type="text" id="country" name="country" required></input>
+        </form>
+        <div className="payment">
+          <StripeProvider onChangeBuyStatus={setBuyStatus} />
+        </div>
+      </div>
+    </>
+  )
+}
 
 export default CheckOut;

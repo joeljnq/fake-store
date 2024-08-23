@@ -15,11 +15,16 @@ interface productSchema {
   title: string
 }
 
+interface cartProductSchema extends productSchema {
+  quantity: number
+}
+
+
 function App() {
   const [products, setProducts] = useState<productSchema[]>([])
   const [categories, setCategories] = useState<string[]>([])
   const [openSideBar, setOpenSideBar] = useState<boolean>(false)
-  const [cartProducts, setCartProducts] = useState<productSchema[]>(JSON.parse(localStorage.getItem('cart') || '[]'))
+  const [cartProducts, setCartProducts] = useState<cartProductSchema[]>(JSON.parse(localStorage.getItem('cart') || '[]'))
   const apiURL = import.meta.env.VITE_API_URL
   useEffect(() => {
     fetch(apiURL)
@@ -49,7 +54,22 @@ function App() {
   }
 
   const handleAddProduct = (product: productSchema) => {
-    setCartProducts(prevState => [...prevState, product])
+    const productIndex = cartProducts.findIndex(cartProduct => cartProduct.id === product.id)
+    
+    if (productIndex !== -1) {
+      console.log('entre');
+      
+      const updatedCartProducts = cartProducts.map(cartProduct => {
+        if (cartProduct.id === product.id) {
+          return { ...cartProduct, quantity: cartProduct.quantity + 1 }
+        }else{
+          return cartProduct
+        }
+      })
+      setCartProducts(updatedCartProducts)  
+    }else{
+      setCartProducts(prevState => [...prevState, { ...product, quantity: 1 }])
+    }
   }
   return (
     <>
