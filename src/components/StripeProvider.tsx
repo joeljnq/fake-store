@@ -1,37 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-
 const stripePromise = loadStripe('pk_test_51PoQhT1jsSJzGSyCEkZvg4Pn6eQ8ax91ddKbXSS0n3u2AzaRijYYsipptUhobxHhkxIqhKAq56w1jELEGDrBMdon00OisoBM70');
-const CheckoutForm: React.FC = () => {
+
+interface CheckoutFormProps {
+  onChangeBuyStatus: (status: boolean) => void;
+}
+const CheckoutForm: React.FC<CheckoutFormProps> = ({onChangeBuyStatus}) => {
   const stripe = useStripe();
   const elements = useElements();
+  
+  const [cardholderName, setCardholderName] = useState('');  
+
+
   const handleSubmit = async (e: React.FormEvent) => {
-    // handle stripe payment
     e.preventDefault();
-    const cardElement = elements?.getElement(CardElement);
-    if (cardElement && stripe) {
+
+    if (!stripe || !elements) {
+      return; 
+    }
+
+    const cardElement = elements.getElement(CardElement);
+
+    if (cardElement) {
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: 'card',
         card: cardElement,
+        billing_details: {
+          name: cardholderName,
+        },
       });
-    }else{
-      console.log('error');
+
+      if (error){
+        console.log('PaymentMethod:', paymentMethod)
+      }else{
+        onChangeBuyStatus(true)
+      };
+      
+      
     }
-  }
+  };
   return (
     <form onSubmit={handleSubmit}>
+      <label>
+        Cardholder's Name:
+       
+      </label>
+      <input
+          type="text"
+          value={cardholderName}
+          onChange={(e) => setCardholderName(e.target.value)}
+          required
+        />
       <CardElement />
-      <button>buy</button>
+      <button type="submit" className="custom-btn btn-2" disabled={!stripe}>Buy</button>
     </form>
-  )
-}
+  );
+};
 
-const StripeProvider: React.FC = () => {
+interface StripeProviderProps {
+  onChangeBuyStatus: (status: boolean) => void;
+}
+const StripeProvider: React.FC <StripeProviderProps> = ({onChangeBuyStatus}) => {
   return (
     <Elements stripe={stripePromise}>
-      <CheckoutForm />
+      <CheckoutForm onChangeBuyStatus={onChangeBuyStatus}/>
     </Elements>
   );
 };

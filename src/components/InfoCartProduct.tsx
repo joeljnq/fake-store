@@ -22,7 +22,7 @@ interface productSchema {
 }
 const InfoCartProduct: React.FC<infoCartProductProps> = ({ product, idx , onChangeProducts}) => {
     
-    const [productQuantity, setProductQuantity] = useState(1)
+    const [productQuantity, setProductQuantity] = useState<number>(product.quantity)
     const updateCart = (updatedProducts: productSchema[]) => {
         localStorage.setItem('cart', JSON.stringify(updatedProducts));
         onChangeProducts(updatedProducts);
@@ -61,7 +61,7 @@ const InfoCartProduct: React.FC<infoCartProductProps> = ({ product, idx , onChan
                 <p>{productQuantity}</p>
                 <button onClick={handleMoreProducts}>+</button>
             </div>
-            <p>€{product.price}</p>
+            <p>€{Math.round((product.price * product.quantity) * 100) / 100}</p>
         </div>
     )
 }

@@ -5,7 +5,7 @@ import './assets/css/index.css'
 import ProductInfo from './components/ProductInfo'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ShoppingCart from './components/ShoppingCart'
-import StripeProvider from './components/StripeProvider'
+import CheckOut from './components/CheckOut'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
@@ -13,7 +13,7 @@ createRoot(document.getElementById('root')!).render(
       <Route path='/' element={<App />} />
       <Route path='/product/:productID' element={<ProductInfo />} />
       <Route path='cart' element={<ShoppingCart />}></Route>
-      <Route path='checkout' element={<StripeProvider />}></Route>
+      <Route path='checkout' element={<CheckOut />}></Route>
 
     </Routes>
     </BrowserRouter>
