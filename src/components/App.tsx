@@ -25,6 +25,7 @@ function App() {
   const [categories, setCategories] = useState<string[]>([])
   const [openSideBar, setOpenSideBar] = useState<boolean>(false)
   const [cartProducts, setCartProducts] = useState<cartProductSchema[]>(JSON.parse(localStorage.getItem('cart') || '[]'))
+  
   const apiURL = import.meta.env.VITE_API_URL
   useEffect(() => {
     fetch(apiURL)
@@ -39,13 +40,9 @@ function App() {
   }, [])
 
   useEffect(()=>{
-    const ls = cartProducts.map(cartProduct => {
-      return {
-        ...cartProduct,
-        quantity: 1
-      }
-    })
-    localStorage.setItem('cart', JSON.stringify(ls))
+    
+   
+    localStorage.setItem('cart', JSON.stringify(cartProducts))
   },[cartProducts])
 
   const handleProductInfo = (productID: number) => {
@@ -57,7 +54,6 @@ function App() {
     const productIndex = cartProducts.findIndex(cartProduct => cartProduct.id === product.id)
     
     if (productIndex !== -1) {
-      console.log('entre');
       
       const updatedCartProducts = cartProducts.map(cartProduct => {
         if (cartProduct.id === product.id) {
@@ -73,7 +69,7 @@ function App() {
   }
   return (
     <>
-      <NavBar categories={categories} onHandleSideBar={setOpenSideBar} quantityProducts={cartProducts.length} />
+      <NavBar categories={categories} onHandleSideBar={setOpenSideBar} quantityProducts={cartProducts.length} products={products} />
       <main className='app'>
         {products.map((product) => {
           return (
@@ -81,7 +77,7 @@ function App() {
               <button onClick={() => handleProductInfo(product.id)} className='button-image'><img src={product.image} alt={product.title} className='product-img' /></button>
               <p>{product.title}</p>
               <div className='price-wrapper'>
-                <p>€{product.price}</p>
+                <p>{product.price}€</p>
                 <button onClick={() => handleAddProduct(product)} >add to cart</button>
               </div>
             </div>

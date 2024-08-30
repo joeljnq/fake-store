@@ -1,27 +1,28 @@
 nav{
     background-color:#F7F7F8;
     display: flex;
-    justify-content: center;
-    margin: 0;
+    justify-content: space-around;
+    margin: 0 auto;
     align-items: center;
     margin-bottom: 20px;
-    
+    width: 100%;    
 }
 .categories{
-    width: 30%;
+    width: 25%;
     display: flex;
     justify-content: space-between;
     padding: 0;
     margin: 0;
     list-style: none;
-    margin: auto;
 }
 
 #nameStore{
     font-size: 1.5rem;
     font-weight: bold;
     color: #000000;
-    width: 50%;
+    width: 20%;
+    cursor: pointer;
+    text-align: center;
 }
 .shopping-cart{
     width: 100%;
