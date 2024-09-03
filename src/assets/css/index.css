@@ -1,7 +1,14 @@
 body{
   color: black;
-  background-color: #AAD7D9;
+  background-color: white;
   padding: 0;
   margin: 0;
   font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto/Roboto-Regular.ttf');
+  font-weight: normal; 
 }
