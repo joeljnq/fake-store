@@ -1,0 +1,57 @@
+@keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+.product-wrapper {
+    width: 90%;
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.image-wrapper {
+    background-color: white;
+    height: 70%;
+    max-width: 100%;
+    display: flex;
+    margin: auto;
+    border: 1px solid grey;
+}
+
+
+.add-image{
+    width: 10%;
+    height: 10%;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 50px;
+    transform: translateY(-50%);
+    background-color:thistle;
+    z-index: 1000;
+    transition: left 0.3s ease-in-out;
+    animation-duration: 0.5s;
+    animation-fill-mode:forwards;
+    animation-name: slideIn;
+
+    
+  }
+
+  .product-img{
+    max-height: 50%;
+    max-width: 50%;
+    margin: auto;
+    cursor: pointer;
+  }
+  
+  .product-img:hover{
+    transform: scale(1.2);
+  
+  }
