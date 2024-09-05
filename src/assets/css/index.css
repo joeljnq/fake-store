@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 body{
   color: black;
   background-color: white;
@@ -5,10 +8,12 @@ body{
   margin: 0;
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 @font-face {
   font-family: 'Roboto';
-  src: url('../fonts/Roboto/Roboto-Regular.ttf');
+  src: url('../fonts/Roboto/Roboto-Regular.ttf') format('truetype');
   font-weight: normal; 
 }

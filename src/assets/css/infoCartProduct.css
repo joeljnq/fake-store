@@ -5,10 +5,11 @@
     width: 70%;
     margin: auto;
     margin-bottom: 30px;
-}
+    border-top: 1px solid #e9ecef;
+    padding-top: 10px;
+}   
 
-.garbage-cart{
-}
+
 .garbageButton-cart{
     cursor: pointer;
 }
@@ -49,4 +50,37 @@
 
 .products-quantity > p {
     margin-right: 10px;
+}
+
+@media screen and (max-width : 768px) {
+    .infoProduct-wrapper{
+        flex-direction: column;
+        width: 90%;
+    }
+    .infoProduct-wrapper > img {
+        width: 120px;
+        margin-right:10px ;
+
+    }
+    .infoProduct-wrapper > button {
+        width: 10%;
+        height: 20%;
+    }
+    .product{
+        width: 50%;
+        text-align: center;
+    }
+    .products-quantity {
+        width: 30%;
+    }
+    .products-quantity > button {
+        width: 30%;
+        height: 30%;
+    }
+    .products-quantity > p {
+        margin-right: 10px;
+    }
+    .price-average{
+        width: 20%;
+    }
 }

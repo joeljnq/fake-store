@@ -31,10 +31,16 @@ const ShoppingCart: React.FC = () => {
         const url = `${window.location.origin}/checkout`;
         window.open(url, '_blank',);
     }
+
+    const handleToOrigin = () => {
+        const url = `${window.location.origin}`;
+        window.open(url, '_self');
+    }
+
     return (
         <>
             <header>
-                <h1>Shopping Cart</h1>
+                <h1 onClick={()=>{handleToOrigin()}} className='sc-title'>FakeStore</h1>
             </header>
             <main className='main-cart'>
 
@@ -49,7 +55,7 @@ const ShoppingCart: React.FC = () => {
                     <p>Sumarry of the products</p>
 
                     <p>subtotal: €{subtotal}</p>
-                    <p>------------------------------</p>
+                    <p>-----------------</p>
                     <p>Estimated total €{subtotal}</p>
                 <button id="seeCart-button" className="custom-btn btn-2" onClick={ handleCheckoutButton}>buy</button>
 

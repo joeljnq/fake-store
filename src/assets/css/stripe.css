@@ -1,0 +1,15 @@
+#stripeForm-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+.card{
+   width: 100%;
+   margin-top: 15px;
+}
+
+#button-stripe{
+    margin-top: 10px;
+}

@@ -14,6 +14,7 @@
     text-align: center;
     margin-bottom: 30px;
     position: relative;
+    margin-top: 15px;
 }
 
 .image-wrapper {
@@ -35,7 +36,7 @@
     top: 50px;
     transform: translateY(-50%);
     background-color:thistle;
-    z-index: 1000;
+    z-index: 1;
     transition: left 0.3s ease-in-out;
     animation-duration: 0.5s;
     animation-fill-mode:forwards;

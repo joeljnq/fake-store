@@ -1,4 +1,4 @@
-aside {
+.aside-cart {
   position: fixed;
   top: 0;
   right: 0;
@@ -11,7 +11,12 @@ aside {
   height: 100vh;
 
 }
-
+ @media screen and (max-width: 768px) {
+  .aside-cart {
+    width: 100%;
+  }
+  
+}
 .product-wrapperSB {
   display: flex;
   width: 100%;
@@ -26,6 +31,7 @@ aside {
   height: 20%;
   margin-right:15px ;
 }
+
 
 
 .infoSB-wrapper {
@@ -45,11 +51,24 @@ aside {
   text-align: start;
 }
 
-.garbage {
-  width: 5%;
-  height: 35%;
-}
 
+
+@media screen and (max-width: 768px) {
+  .infoSB-wrapper {
+    width: 80%;
+    padding: 10px;
+  }
+  .product-image {
+    max-width: 70px;
+    width: 200px;
+  }
+  .garbage{
+    width: 10%;
+  }
+  .pricing-wrapper{
+    height: auto;
+  }
+}
 .product-wrapperSB>button {
   width: 10%;
   height: 20%;
@@ -66,15 +85,40 @@ aside {
   padding: 10px;
 }
 
-#header-sideBar>img {
-  width: 6%;
+.leave {
+  width: 60%;
   cursor: pointer;
+  margin: auto;
 }
 
+.circle{
+  width: 50px; /* Cambia el tamaño según sea necesario */
+  height: 50px; /* El mismo valor que el ancho para mantener el círculo */
+  border-radius: 50%; /* Hace que el contenedor sea un círculo */
+  overflow: hidden; /* Oculta la parte sobrante de la imagen */
+  display: flex;
+  justify-content: center;
+  background-color: transparent; /* Opcional: Color de fondo */
+  margin-top: auto;
+  margin-bottom: auto;
+
+}
 .cart-sideBar {
   height: 75%;
   overflow-y: auto;
   width: 100%;
+}
+
+.circle:hover{
+  background-color: #F5F5F5;
+}
+
+.garbage {
+  width: 60%;
+  height: auto;
+  cursor: pointer;
+  margin: auto;
+
 }
 
 
