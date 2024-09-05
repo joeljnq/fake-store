@@ -19,8 +19,12 @@ const handleCartButton = () => {
     const url = `${window.location.origin}/cart`;
     window.open(url, '_blank',);
 }
+
+const handleToProduct = (id:number) =>{
+    const url = `${window.location.origin}/product/${id}`;
+    window.open(url, '_blank',);
+}
 const SideBar: React.FC<SideBarProps> = ({ products, onCloseSideBar, onChangeCartProducts }) => {
-    console.log(products);
 
     const [total, setTotal] = useState<number>(0)
     useEffect(() => {
@@ -36,22 +40,26 @@ const SideBar: React.FC<SideBarProps> = ({ products, onCloseSideBar, onChangeCar
         <aside className="aside-cart" onClick={(e) => e.stopPropagation()}>
             <div id="header-sideBar">
                 <h2>My cart</h2>
-                <img src={leave} alt="leave" className="leave" onClick={() => onCloseSideBar(false)} />
+                <div className="circle">
+                    <img src={leave} alt="leave" className="leave" onClick={() => onCloseSideBar(false)} />
+                </div>
             </div>
             <div className="cart-sideBar">               {products.length > 0 ? (
                 products.map((product) => (
                     <div key={product.id} className="product-wrapperSB">
                         <div className="infoSB-wrapper">
-                            <img src={product.image} alt="product" className="product-image" />
+                                <img src={product.image} alt="product" className="product-image" onClick={()=>handleToProduct(product.id)} />
+                          
                             <div className="pricing-wrapper">
                                 <p>{product.title}</p>
                                 <p className="pricing">{product.price}€</p>
                                 <p>Quantity: {product.quantity}</p>
                             </div>
                         </div>
+                        <div className="circle">
 
                         <img onClick={() => onChangeCartProducts(products.filter((pdc) => pdc.id !== product.id))} src={garbage} alt="delete" className="garbage" />
-
+                        </div>
                     </div>
                 ))
             ) : (

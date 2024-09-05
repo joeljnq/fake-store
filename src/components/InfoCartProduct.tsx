@@ -61,7 +61,7 @@ const InfoCartProduct: React.FC<infoCartProductProps> = ({ product, idx , onChan
                 <p>{productQuantity}</p>
                 <button onClick={handleMoreProducts}>+</button>
             </div>
-            <p>€{Math.round((product.price * product.quantity) * 100) / 100}</p>
+            <p className="price-average">€{Math.round((product.price * product.quantity) * 100) / 100}</p>
         </div>
     )
 }

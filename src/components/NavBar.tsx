@@ -3,9 +3,10 @@ import '../assets/css/NavBar.css'
 interface NavBarProps {
     onHandleSideBar: (status: boolean) => void
     quantityProducts: number
+    isMainPage: boolean
 }
 
-const NavBar: React.FC<NavBarProps> = ({ onHandleSideBar, quantityProducts }) => {
+const NavBar: React.FC<NavBarProps> = ({ onHandleSideBar, quantityProducts, isMainPage }) => {
     const [isTop, setIsTop] = useState<boolean>(true);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const NavBar: React.FC<NavBarProps> = ({ onHandleSideBar, quantityProducts }) =>
         window.open(url, '_self');
     }
     return (
-        <nav className={isTop ? 'initial-nav' : 'scroll-nav' }>
+        <nav className={isTop && isMainPage ? 'initial-nav' : 'scroll-nav' }>
             <p id="nameStore" onClick={handleNameStore}>FakeStore</p>
             <div id="buttons-wrapper">
                 <button id="cart-button" onClick={() => onHandleSideBar(true)}><img src='../../src/assets/images/shopping-cart.svg' alt="shopping cart" className="shopping-cart" /></button>

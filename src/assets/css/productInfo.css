@@ -45,6 +45,24 @@
     margin-bottom: 30px;
 }
 
+@media screen and (max-width: 768px) {
+    .productInfo-wrapper {
+      display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .productInfo-wrapper img {
+        max-width: 50%;
+        height: 30%;
+        margin-right: 0;
+    }
+
+    .info-wrapper{
+        width: 100%;
+    }
+}
 /* css of button add to cart */
 /* From Uiverse.io by vinodjangid07 */ 
 .CartBtn {
@@ -61,6 +79,7 @@
   overflow: hidden;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.103);
   position: relative;
+  margin: auto;
 }
 
 .IconContainer {

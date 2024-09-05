@@ -7,11 +7,17 @@ const CheckOut: React.FC = () => {
     localStorage.removeItem('cart');
     const url = `${window.location.origin}`;
     window.location.href = url;
-    
+
+  }
+  const handleToOrigin = () => {
+    const url = `${window.location.origin}`;
+    window.open(url, '_self');
   }
   return (
     <>
-      <h1>Checkout</h1>
+      <header>
+        <h1 onClick={()=> handleToOrigin()} id="checkout-title">Checkout</h1>
+      </header>
       <div className="checkout-wrapper">
         <form id="form-checkout">
           <label htmlFor="name">Name:</label>

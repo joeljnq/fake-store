@@ -69,7 +69,7 @@ const ProductInfo: React.FC = () => {
 
     return (
         <>
-            <NavBar onHandleSideBar={setOpenSideBar} quantityProducts={cartProducts.length} />
+            <NavBar onHandleSideBar={setOpenSideBar} quantityProducts={cartProducts.length} isMainPage={false}/>
 
             <div className="productInfo-wrapper">
                 <img src={product?.image} alt={product?.title} />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import '../assets/css/stripe.css'
 
 const stripePromise = loadStripe('pk_test_51PoQhT1jsSJzGSyCEkZvg4Pn6eQ8ax91ddKbXSS0n3u2AzaRijYYsipptUhobxHhkxIqhKAq56w1jELEGDrBMdon00OisoBM70');
 
@@ -42,7 +43,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({onChangeBuyStatus}) => {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} id='stripeForm-wrapper'>
       <label>
         Cardholder's Name:
        
@@ -53,8 +54,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({onChangeBuyStatus}) => {
           onChange={(e) => setCardholderName(e.target.value)}
           required
         />
-      <CardElement />
-      <button type="submit" className="custom-btn btn-2" disabled={!stripe}>Buy</button>
+      <CardElement className='card' />
+      <button type="submit" className="custom-btn btn-2" id='button-stripe' disabled={!stripe}>Buy</button>
     </form>
   );
 };
