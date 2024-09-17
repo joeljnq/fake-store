@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import '../assets/css/NavBar.css'
+import cartIcon from "../assets/images/shopping-cart.svg";
 interface NavBarProps {
     onHandleSideBar: (status: boolean) => void
     quantityProducts: number
@@ -30,7 +31,7 @@ const NavBar: React.FC<NavBarProps> = ({ onHandleSideBar, quantityProducts, isMa
         <nav className={isTop && isMainPage ? 'initial-nav' : 'scroll-nav' }>
             <p id="nameStore" onClick={handleNameStore}>FakeStore</p>
             <div id="buttons-wrapper">
-                <button id="cart-button" onClick={() => onHandleSideBar(true)}><img src='../../src/assets/images/shopping-cart.svg' alt="shopping cart" className="shopping-cart" /></button>
+                <button id="cart-button" onClick={() => onHandleSideBar(true)}><img src={cartIcon} alt="shopping cart" className="shopping-cart" /></button>
                 <p>{quantityProducts}</p>
             </div>
         </nav>

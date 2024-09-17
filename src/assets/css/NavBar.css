@@ -87,27 +87,55 @@
 
 
 @media screen and (max-width: 768px){
+    #buttons-wrapper{
+        width: 13%;
+    }
    #cart-button{
        width: 100%;
        height: auto;
    }
+   
    #buttons-wrapper > p{
     margin-top:100%;
     text-align: end;
 }
     
 }
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+    /* Ajustes para la barra de navegación */
+    .initial-nav, .scroll-nav {
+        max-width: 100%;
+        padding: 0 15px; /* Puedes ajustar el padding para mayor consistencia */
+    }
+
+    /* Ajustes para los botones */
+    #buttons-wrapper {
+        width: 8%; /* Ajusta el ancho de los botones en pantallas medianas */
+        max-height: 4%; /* Ajusta la altura máxima */
+    }
+
+    #cart-button {
+        width: 100%;
+        height: auto;
+    }
+   
+    #buttons-wrapper > p {
+        margin-top: 50%; 
+        text-align: end;
+    }
 
 
-#search-button{
-    background-color: transparent;
-    border: none;
-    width: 20%;
-    height: 1%;
-    cursor: pointer;
-    padding: 0;
+    /* Ajustes para la sección de categorías */
+    .categories {
+        width: 35%; /* Incrementa el ancho para pantallas medianas */
+    }
+
+    /* Ajustes para los elementos dentro de las categorías */
+    .categories > li {
+        height: auto;
+        padding: 5px 10px; /* Puedes ajustar el padding para mejorar el espaciado */
+    }
 }
-.search-cart{
-    width: 75%;
-    height: 100%;
-}
+
+

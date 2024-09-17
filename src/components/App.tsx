@@ -3,6 +3,7 @@ import '../assets/css/App.css'
 import NavBar from './NavBar'
 import SideBar from './SideBar'
 import Product from './Product'
+
 interface productSchema {
   category: string,
   description: string,
@@ -63,6 +64,7 @@ function App() {
             </svg>
           </button>
         </div>
+        <img src='../../src/assets/images/img-main1.webp' alt='main' id='imgMain' />
       </div>
       <main className='app'>
         {products.map((product) => {

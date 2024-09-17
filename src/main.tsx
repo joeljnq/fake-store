@@ -14,9 +14,7 @@ createRoot(document.getElementById('root')!).render(
       <Route path='/product/:productID' element={<ProductInfo />} />
       <Route path='cart' element={<ShoppingCart />}></Route>
       <Route path='checkout' element={<CheckOut />}></Route>
-
     </Routes>
     </BrowserRouter>
-
   </StrictMode>,
 )

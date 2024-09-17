@@ -32,17 +32,19 @@
   margin: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   height: 67vh;
   max-width: 100%;
   width: 100%;
+  min-width: 100%;
   margin-bottom:30px;
-  padding: 80px;
   position: relative;
   font-family: 'LatoItalic', sans-serif;
-  flex-direction: row-reverse;
 }
-
+#imgMain{
+  width: 30%;
+  height: 85%;
+}
 #model-wrapper{
   width: 30%;
   display: flex;
@@ -57,15 +59,17 @@
   align-items: center;
   justify-content: center;
   width: 30%;
+  margin-top:auto ;
+  margin-bottom: auto;
 }
 
 #newTrend{
-  font-size: 3.5rem;
+  font-size: 5rem;
   margin: 0;
 }
 
 #sale-newTrend{
-  font-size: 2.5rem;
+  font-size: 4.5rem;
 }
 
 #summer{
@@ -82,26 +86,34 @@
 }
 
 @media screen and (max-width: 768px){
- .imgMain-wrapper{
-  padding: 12px;
+ 
+ #imgMain{
+  width: 80%;
+  height: 50%;
+  margin: 0;
  }
-
   #newTrend-wrapper{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
     width: 100%;
+    margin-bottom:20px;
+  
   }
   #newTrend{
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin: 0;
   }
   
   #sale-newTrend{
-    font-size: 2.5rem;
+    font-size: 1.5rem;
   }
-
+  .imgMain-wrapper{
+    flex-direction: column;
+    height: 95vh;
+    align-items: center;
+  }
  
 }
 
@@ -115,7 +127,7 @@
 .cta span {
   padding-bottom: 7px;
   letter-spacing: 4px;
-  font-size: 14px;
+  font-size: 1.5rem;
   padding-right: 15px;
   text-transform: uppercase;
 }
@@ -159,6 +171,14 @@
 
 /* end of button */
 
+@media screen and (max-width: 768px){
+  .cta span {
+  
+    font-size:0.9rem;
+
+  }
+  
+}
 
 @font-face {
   font-family: 'Lato';

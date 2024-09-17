@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { productSchema } from "../interfaces";
 import add from '../assets/images/add.svg'
 import '../assets/css/product.css'
@@ -20,6 +20,22 @@ const Product: React.FC<ProductProps> = ({ product, cartProducts, onChangeCartPr
     }
     const [isHovered, setIsHovered] = useState<boolean>(false)
 
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     const handleAddProduct = (product: productSchema) => {
         const productIndex = cartProducts.findIndex(cartProduct => cartProduct.id === product.id)
 
@@ -40,7 +56,8 @@ const Product: React.FC<ProductProps> = ({ product, cartProducts, onChangeCartPr
     return (
         <div key={product.id} className='product-wrapper'>
             <div className='image-wrapper' onPointerEnter={()=>setIsHovered(true) } onPointerLeave={()=>setIsHovered(false)}>
-               {isHovered && <img onClick={() => handleAddProduct(product)} src={add} className='add-image'></img>}
+               {isHovered  &&  !isMobile  && <img onClick={() => handleAddProduct(product)} src={add} className='add-image'></img>}
+               {isMobile && <img onClick={() => handleAddProduct(product)} src={add} className="add-image" />}
                 <img  onClick={() => handleProductInfo(product.id)} src={product.image} alt={product.title} className='product-img' />
             </div>
             <p className='product-category'>{product.category}</p>
