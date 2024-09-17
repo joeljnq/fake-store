@@ -54,9 +54,9 @@ const ShoppingCart: React.FC = () => {
                 <div className='totalPrice-wrapper'>
                     <p>Sumarry of the products</p>
 
-                    <p>subtotal: €{subtotal}</p>
+                    <p>subtotal: {subtotal}€</p>
                     <p>-----------------</p>
-                    <p>Estimated total €{subtotal}</p>
+                    <p>Estimated total {subtotal}€</p>
                 <button id="seeCart-button" className="custom-btn btn-2" onClick={ handleCheckoutButton}>buy</button>
 
                 </div>
