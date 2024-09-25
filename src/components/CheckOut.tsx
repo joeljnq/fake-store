@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import '../assets/css/checkout.css'
 import StripeProvider from "./StripeProvider";
 const CheckOut: React.FC = () => {
-  const [buyStatus, setBuyStatus] = React.useState(false);
+  const [buyStatus, setBuyStatus] = useState(false);
   if (buyStatus) {
     localStorage.removeItem('cart');
     const url = `${window.location.origin}`;

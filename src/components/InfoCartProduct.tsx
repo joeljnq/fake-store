@@ -1,34 +1,28 @@
 import React, { useEffect, useState } from "react"
 import gargabe from '../assets/images/garbage.svg'
+import { cartProductSchema } from "../interfaces"
 import '../assets/css/infoCartProduct.css'
 interface infoCartProductProps {
-    product: productSchema
-    onChangeProducts: (product: productSchema[]) => void
+    product: cartProductSchema
+    onChangeProducts: (product: cartProductSchema[]) => void
     idx: number
 }
 
-interface productSchema {
-    category: string,
-    description: string,
-    id: number,
-    image: string,
-    price: number,
-    rating: {
-        count: number,
-        rate: number
-    },
-    title: string,
-    quantity: number
-}
+
 const InfoCartProduct: React.FC<infoCartProductProps> = ({ product, idx , onChangeProducts}) => {
     
     const [productQuantity, setProductQuantity] = useState<number>(product.quantity)
-    const updateCart = (updatedProducts: productSchema[]) => {
+    useEffect(() => {
+        const cartProducts = JSON.parse(localStorage.getItem('cart') || '[]')
+        cartProducts[idx] = { ...product, quantity: productQuantity }
+        updateCart(cartProducts)
+    }, [productQuantity,idx])
+    const updateCart = (updatedProducts: cartProductSchema[]) => {
         localStorage.setItem('cart', JSON.stringify(updatedProducts));
         onChangeProducts(updatedProducts);
     };
     const handleLessProducts = () => {
-        setProductQuantity(productQuantity <= 1 ? 1 : productQuantity - 1);
+        setProductQuantity(prevQuantity => Math.max( prevQuantity - 1,1));
 
     }
     const handleMoreProducts = () =>{
@@ -36,17 +30,12 @@ const InfoCartProduct: React.FC<infoCartProductProps> = ({ product, idx , onChan
     }
 
     const handleRemoveProduct = () => {
-        const cartProducts = JSON.parse(localStorage.getItem('cart') || '[]')
+        const cartProducts : cartProductSchema[] = JSON.parse(localStorage.getItem('cart') || '[]')
         cartProducts.splice(idx,1)
-        localStorage.setItem('cart', JSON.stringify(cartProducts))
-        onChangeProducts(cartProducts)
+        updateCart(cartProducts)
     }   
 
-    useEffect(() => {
-        const cartProducts = JSON.parse(localStorage.getItem('cart') || '[]')
-        cartProducts[idx] = { ...product, quantity: productQuantity }
-        updateCart(cartProducts)
-    }, [productQuantity])
+
 
     return (
         <div className="infoProduct-wrapper">
@@ -61,7 +50,7 @@ const InfoCartProduct: React.FC<infoCartProductProps> = ({ product, idx , onChan
                 <p>{productQuantity}</p>
                 <button onClick={handleMoreProducts}>+</button>
             </div>
-            <p className="price-average">€{Math.round((product.price * product.quantity) * 100) / 100}</p>
+            <p className="price-average">{Math.round((product.price * product.quantity) * 100) / 100}€</p>
         </div>
     )
 }

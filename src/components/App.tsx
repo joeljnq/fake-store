@@ -4,40 +4,21 @@ import imageMain from '../assets/images/img-main1.webp'
 import NavBar from './NavBar'
 import SideBar from './SideBar'
 import Product from './Product'
-
-interface productSchema {
-  category: string,
-  description: string,
-  id: number,
-  image: string,
-  price: number,
-  rating: {
-    count: number,
-    rate: number
-  },
-  title: string
-}
-
-interface cartProductSchema extends productSchema {
-  quantity: number
-}
+import { getProducts } from '../services/products'
+import { productSchema, cartProductSchema } from '../interfaces'
+import { UpdateLocalStorage } from '../hooks/UpdateLS'
 
 
 function App() {
   const [products, setProducts] = useState<productSchema[]>([])
   const [openSideBar, setOpenSideBar] = useState<boolean>(false)
   const [cartProducts, setCartProducts] = useState<cartProductSchema[]>(JSON.parse(localStorage.getItem('cart') || '[]'))
+  UpdateLocalStorage({ cartProducts })
   const apiURL = import.meta.env.VITE_API_URL
   useEffect(() => {
-    fetch(apiURL)
-      .then(res => res.json())
-      .then(res => setProducts(res))
+   const allProducts = getProducts()
+   allProducts.then(products => setProducts(products))
   }, [apiURL])
-  useEffect(() => {
-
-
-    localStorage.setItem('cart', JSON.stringify(cartProducts))
-  }, [cartProducts])
 
 
   return (

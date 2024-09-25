@@ -4,42 +4,29 @@ import { productSchema } from "../interfaces";
 import NavBar from "./NavBar";
 import '../assets/css/productInfo.css'
 import SideBar from "./SideBar";
-interface cartProductSchema extends productSchema {
-    quantity: number
-}
+import { getProduct } from "../services/productID";
+import { cartProductSchema } from "../interfaces";
+import { UpdateLocalStorage } from "../hooks/UpdateLS";
+
 const ProductInfo: React.FC = () => {
     const { productID } = useParams<{ productID: string }>();
     const [product, setProduct] = useState<productSchema | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [openSideBar, setOpenSideBar] = useState<boolean>(false)
     const [cartProducts, setCartProducts] = useState<cartProductSchema[]>(JSON.parse(localStorage.getItem('cart') || '[]'))
-
+    UpdateLocalStorage({cartProducts})
 
     useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const response = await fetch(`https://fakestoreapi.com/products/${productID}`);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch product");
-                }
-                const data = await response.json();
-                setProduct(data);
-            } catch (err) {
-                console.log(err);
-
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchProduct();
+        if (productID) {
+            const productData = getProduct(productID);
+            productData.then(product => {
+                setProduct(product)
+                setLoading(false)
+            });
+        } else {
+            setLoading(false);
+        }
     }, [productID]);
-
-
-    useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cartProducts))
-    }, [cartProducts])
-
     
     if (loading) {
         return <div>Loading...</div>;

@@ -10,3 +10,7 @@ export interface productSchema{
   },
   title: string
 }
+
+export interface cartProductSchema extends productSchema {
+    quantity: number
+}

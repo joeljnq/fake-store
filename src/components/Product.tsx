@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { productSchema } from "../interfaces";
+import { productSchema, cartProductSchema } from "../interfaces";
 import add from '../assets/images/add.svg'
 import '../assets/css/product.css'
 
@@ -9,9 +9,6 @@ interface ProductProps {
     onChangeCartProducts: (cartProducts: cartProductSchema[]) => void
 }
 
-interface cartProductSchema extends productSchema {
-    quantity: number
-}
 
 const Product: React.FC<ProductProps> = ({ product, cartProducts, onChangeCartProducts }) => {
     const handleProductInfo = (productID: number) => {
