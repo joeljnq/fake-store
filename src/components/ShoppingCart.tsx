@@ -1,15 +1,17 @@
 import "../assets/css/shoppingCart.css";
 import InfoCartProduct from "./InfoCartProduct";
-import React, { useState } from "react";
+import React from "react";
 import { useTotalPrice } from "../hooks/TotalPrice";
 import { cartProductSchema } from "../interfaces";
 import { useNavigate } from "react-router-dom";
 
-const ShoppingCart: React.FC = () => {
+interface ShoppingCartProps {
+  products: cartProductSchema[];
+  onChangeCartProducts: (products: cartProductSchema[]) => void;
+}
+const ShoppingCart: React.FC<ShoppingCartProps> = ({products,onChangeCartProducts}) => {
   const navigate = useNavigate();
-  const [products, setProducts] = useState<cartProductSchema[]>(
-    JSON.parse(localStorage.getItem("cart") || "[]")
-  );
+
   const { subtotal } = useTotalPrice({ products });
 
   const handleToNavigation = (path: string) => {
@@ -27,7 +29,7 @@ const ShoppingCart: React.FC = () => {
                 <InfoCartProduct
                   product={product}
                   idx={index}
-                  onChangeProducts={setProducts}
+                  onChangeProducts={onChangeCartProducts}
                   key={index}
                 />
               );

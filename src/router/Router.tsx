@@ -36,7 +36,7 @@ const AppRouter: React.FC = () => {
         >
           <Route index element={<App cartProducts={cartProducts} onChangeCartProducts={setCartProducts} />} />
           <Route path="/product/:productID" element={<ProductInfo cartProducts={cartProducts} onChangeCartProducts={setCartProducts} />} />
-          <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/cart" element={<ShoppingCart products={cartProducts} onChangeCartProducts={setCartProducts} />} />
           <Route path="/checkout" element={<CheckOut />} />
         </Route>
       </Routes>
