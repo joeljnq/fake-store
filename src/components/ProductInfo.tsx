@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { productSchema } from "../interfaces";
-import NavBar from "./NavBar";
 import '../assets/css/productInfo.css'
-import SideBar from "./SideBar";
 import { getProduct } from "../services/productID";
 import { cartProductSchema } from "../interfaces";
 import { UpdateLocalStorage } from "../hooks/UpdateLS";
 
-const ProductInfo: React.FC = () => {
+interface ProductInfoProps {
+    cartProducts: cartProductSchema[];
+    onChangeCartProducts: (products: cartProductSchema[]) => void;
+
+}
+const ProductInfo: React.FC<ProductInfoProps> = ({cartProducts, onChangeCartProducts}) => {
     const { productID } = useParams<{ productID: string }>();
     const [product, setProduct] = useState<productSchema | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const [openSideBar, setOpenSideBar] = useState<boolean>(false)
-    const [cartProducts, setCartProducts] = useState<cartProductSchema[]>(JSON.parse(localStorage.getItem('cart') || '[]'))
     UpdateLocalStorage({cartProducts})
 
     useEffect(() => {
@@ -45,9 +46,9 @@ const ProductInfo: React.FC = () => {
                     return cartProduct
                 }
             })
-            setCartProducts(updatedCartProducts)
+            onChangeCartProducts(updatedCartProducts)
         } else {
-            setCartProducts([...cartProducts, { ...product, quantity: 1 }])
+            onChangeCartProducts([...cartProducts, { ...product, quantity: 1 }])
         }
     }
 
@@ -56,8 +57,6 @@ const ProductInfo: React.FC = () => {
 
     return (
         <>
-            <NavBar onHandleSideBar={setOpenSideBar} quantityProducts={cartProducts.length} isMainPage={false}/>
-
             <div className="productInfo-wrapper">
                 <img src={product?.image} alt={product?.title} />
                 <div className="info-wrapper">
@@ -73,7 +72,6 @@ const ProductInfo: React.FC = () => {
                     </button>
                 </div>
             </div>
-            {openSideBar && <SideBar products={cartProducts} onCloseSideBar={setOpenSideBar} onChangeCartProducts={setCartProducts} />}
 
         </>
     );

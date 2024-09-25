@@ -3,6 +3,7 @@ import "../assets/css/SideBar.css";
 import garbage from "../assets/images/garbage.svg";
 import leave from "../assets/images/right-arrow.svg";
 import { useTotalPrice } from "../hooks/TotalPrice";
+import { useNavigate } from "react-router-dom";
 
 interface SideBarProps {
   products: cartProductSchema[];
@@ -16,10 +17,10 @@ const SideBar: React.FC<SideBarProps> = ({
   onChangeCartProducts,
 }) => {
   const { subtotal } = useTotalPrice({ products });
+  const navigate = useNavigate();
 
   const handleNavigation = (path: string) => {
-    const url = `${window.location.origin}${path}`;
-    window.open(url, "_blank");
+    navigate(path);
   };
 
 
@@ -47,7 +48,10 @@ const SideBar: React.FC<SideBarProps> = ({
                     src={product.image}
                     alt="product"
                     className="product-image"
-                    onClick={() => handleNavigation(`/product/${product.id}`)}
+                    onClick={() => {
+                      handleNavigation(`/product/${product.id}`);
+                      onCloseSideBar(false);
+                    }}
                   />
 
                   <div className="pricing-wrapper">
@@ -82,6 +86,7 @@ const SideBar: React.FC<SideBarProps> = ({
               className="custom-btn btn-2"
               onClick={() => {
                 handleNavigation("/cart");
+                onCloseSideBar(false);
               }}
             >
               Go to cart

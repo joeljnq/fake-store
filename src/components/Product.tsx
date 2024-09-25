@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { productSchema, cartProductSchema } from "../interfaces";
 import add from '../assets/images/add.svg'
 import '../assets/css/product.css'
+import { useNavigate } from "react-router-dom";
 
 interface ProductProps {
     product: productSchema
@@ -11,9 +12,10 @@ interface ProductProps {
 
 
 const Product: React.FC<ProductProps> = ({ product, cartProducts, onChangeCartProducts }) => {
+    const navigate = useNavigate();
     const handleProductInfo = (productID: number) => {
-        const url = `${window.location.origin}/product/${productID}`;
-        window.open(url, '_blank',);
+        const url = `/product/${productID}`;
+        navigate(url)
     }
     const [isHovered, setIsHovered] = useState<boolean>(false)
 

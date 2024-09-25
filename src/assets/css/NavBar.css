@@ -1,7 +1,6 @@
 .initial-nav, .scroll-nav{
-    position: fixed;
-
-    background-color:thistle;
+    position: sticky;
+    background-color:white;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -11,7 +10,9 @@
     z-index: 1000; 
     padding: 0;
     margin: 0;
+    top:0
 }
+
 
 .scroll-nav{
     background-color:white;
@@ -23,13 +24,11 @@
 
 @media screen and (max-width: 768px){
     .initial-nav{
-        position: fixed;
         max-width: 100%;
         padding: 0 10px;
     }
 
     .scroll-nav{
-        position: fixed;
         max-width: 100%;
         padding: 0 10px;
     }

@@ -1,23 +1,18 @@
 import React, { useState } from "react";
-import '../assets/css/checkout.css'
+import "../assets/css/checkout.css";
 import StripeProvider from "./StripeProvider";
 const CheckOut: React.FC = () => {
   const [buyStatus, setBuyStatus] = useState(false);
   if (buyStatus) {
-    localStorage.removeItem('cart');
+    localStorage.removeItem("cart");
     const url = `${window.location.origin}`;
     window.location.href = url;
+  }
 
-  }
-  const handleToOrigin = () => {
-    const url = `${window.location.origin}`;
-    window.open(url, '_self');
-  }
   return (
     <>
-      <header>
-        <h1 onClick={()=> handleToOrigin()} id="checkout-title">Checkout</h1>
-      </header>
+      <h1 id="checkout-title">Checkout</h1>
+
       <div className="checkout-wrapper">
         <form id="form-checkout">
           <label htmlFor="name">Name:</label>
@@ -38,7 +33,7 @@ const CheckOut: React.FC = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default CheckOut;
