@@ -3,36 +3,23 @@ import InfoCartProduct from "./InfoCartProduct";
 import React, { useState } from "react";
 import { useTotalPrice } from "../hooks/TotalPrice";
 import { cartProductSchema } from "../interfaces";
+import { useNavigate } from "react-router-dom";
 
 const ShoppingCart: React.FC = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState<cartProductSchema[]>(
     JSON.parse(localStorage.getItem("cart") || "[]")
   );
   const { subtotal } = useTotalPrice({ products });
 
   const handleToNavigation = (path: string) => {
-    if (path.length === 0) {
-      const url = `${window.location.origin}`;
-      window.open(url, "_self");
-    }
-
-    const url = `${window.location.origin}${path}`;
-    window.open(url, "_blank");
+   navigate(path);
   };
 
   return (
     <>
-      <header>
-        <h1
-          onClick={() => {
-            handleToNavigation("");
-          }}
-          className="sc-title"
-        >
-          FakeStore
-        </h1>
-      </header>
-      <main className="main-cart">
+      <h1 id="shopping-title">SHOPPING CART</h1>
+      <div className="main-cart">
         <div className="cartProduct-wrapper">
           {products.length > 0 ? (
             products.map((product, index) => {
@@ -63,7 +50,7 @@ const ShoppingCart: React.FC = () => {
             buy
           </button>
         </div>
-      </main>
+      </div>
     </>
   );
 };

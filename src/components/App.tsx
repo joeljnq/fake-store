@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react'
 import '../assets/css/App.css'
 import imageMain from '../assets/images/img-main1.webp'
-import NavBar from './NavBar'
-import SideBar from './SideBar'
 import Product from './Product'
 import { getProducts } from '../services/products'
 import { productSchema, cartProductSchema } from '../interfaces'
 import { UpdateLocalStorage } from '../hooks/UpdateLS'
 
-
-function App() {
+interface appProps{
+  cartProducts: cartProductSchema[],
+  onChangeCartProducts: (product: cartProductSchema[]) => void
+}
+function App({ cartProducts, onChangeCartProducts }: appProps) {
   const [products, setProducts] = useState<productSchema[]>([])
-  const [openSideBar, setOpenSideBar] = useState<boolean>(false)
-  const [cartProducts, setCartProducts] = useState<cartProductSchema[]>(JSON.parse(localStorage.getItem('cart') || '[]'))
   UpdateLocalStorage({ cartProducts })
   const apiURL = import.meta.env.VITE_API_URL
   useEffect(() => {
@@ -23,7 +22,6 @@ function App() {
 
   return (
     <div id='main'>
-      <NavBar onHandleSideBar={setOpenSideBar} quantityProducts={cartProducts.length} isMainPage={true} />
       <div className='imgMain-wrapper'>
         <div id='newTrend-wrapper'>
           <p id='newTrend'>NEW IN</p>
@@ -51,11 +49,10 @@ function App() {
       <main className='app'>
         {products.map((product) => {
           return (
-            <Product key={product.id} product={product} cartProducts={cartProducts} onChangeCartProducts={setCartProducts} />
+            <Product key={product.id} product={product} cartProducts={cartProducts} onChangeCartProducts={onChangeCartProducts} />
           )
         })}
       </main>
-      {openSideBar && <SideBar products={cartProducts} onCloseSideBar={setOpenSideBar} onChangeCartProducts={setCartProducts} />}
 
     </div>
   )
