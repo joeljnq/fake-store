@@ -3,20 +3,15 @@ import InfoCartProduct from "./InfoCartProduct";
 import React from "react";
 import { useTotalPrice } from "../hooks/TotalPrice";
 import { cartProductSchema } from "../interfaces";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface ShoppingCartProps {
   products: cartProductSchema[];
   onChangeCartProducts: (products: cartProductSchema[]) => void;
 }
 const ShoppingCart: React.FC<ShoppingCartProps> = ({products,onChangeCartProducts}) => {
-  const navigate = useNavigate();
 
   const { subtotal } = useTotalPrice({ products });
-
-  const handleToNavigation = (path: string) => {
-   navigate(path);
-  };
 
   return (
     <>
@@ -44,13 +39,12 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({products,onChangeCartProduct
           <p>subtotal: {subtotal}€</p>
           <p>-----------------</p>
           <p>Estimated total {subtotal}€</p>
-          <button
+          <Link to='/checkout'
             id="seeCart-button"
             className="custom-btn btn-2"
-            onClick={() => handleToNavigation("/checkout")}
           >
             buy
-          </button>
+          </Link>
         </div>
       </div>
     </>

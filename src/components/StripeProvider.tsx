@@ -34,7 +34,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({onChangeBuyStatus}) => {
       });
 
       if (error){
-        console.log('PaymentMethod:', paymentMethod)
+        console.error('PaymentMethod:', paymentMethod)
       }else{
         onChangeBuyStatus(true)
       };

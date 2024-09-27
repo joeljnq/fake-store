@@ -5,6 +5,7 @@ import Product from './Product'
 import { getProducts } from '../services/products'
 import { productSchema, cartProductSchema } from '../interfaces'
 import { UpdateLocalStorage } from '../hooks/UpdateLS'
+import { Link } from 'react-router-dom'
 
 interface appProps{
   cartProducts: cartProductSchema[],
@@ -26,7 +27,7 @@ function App({ cartProducts, onChangeCartProducts }: appProps) {
         <div id='newTrend-wrapper'>
           <p id='newTrend'>NEW IN</p>
           <p id='sale-newTrend'>SPRING/SUMMER</p>
-          <button className="cta">
+          <Link to='/product/2' className="cta">
             <span className="hover-underline-animation"> Shop now </span>
             <svg
               id="arrow-horizontal"
@@ -42,7 +43,7 @@ function App({ cartProducts, onChangeCartProducts }: appProps) {
                 transform="translate(30)"
               ></path>
             </svg>
-          </button>
+          </Link>
         </div>
         <img src={imageMain} alt='main' id='imgMain' />
       </div>

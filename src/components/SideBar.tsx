@@ -3,7 +3,7 @@ import "../assets/css/SideBar.css";
 import garbage from "../assets/images/garbage.svg";
 import leave from "../assets/images/right-arrow.svg";
 import { useTotalPrice } from "../hooks/TotalPrice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface SideBarProps {
   products: cartProductSchema[];
@@ -23,11 +23,9 @@ const SideBar: React.FC<SideBarProps> = ({
     navigate(path);
   };
 
-
   return (
-    <div id="aside-wrapper" onClick={()=> onCloseSideBar(false)}>
-
-      <aside className="aside-cart"  onClick={(e) => e.stopPropagation()}>
+    <div id="aside-wrapper" onClick={() => onCloseSideBar(false)}>
+      <aside className="aside-cart" onClick={(e) => e.stopPropagation()}>
         <div id="header-sideBar">
           <h2>My cart</h2>
           <div className="circle">
@@ -44,15 +42,18 @@ const SideBar: React.FC<SideBarProps> = ({
             products.map((product) => (
               <div key={product.id} className="product-wrapperSB">
                 <div className="infoSB-wrapper">
+                  <Link to={`/product/${product.id}`} id="link-sidebar">
                   <img
                     src={product.image}
                     alt="product"
-                    className="product-image"
+                    className="productImage-sidebar"
                     onClick={() => {
                       handleNavigation(`/product/${product.id}`);
                       onCloseSideBar(false);
                     }}
                   />
+                  </Link>
+                
 
                   <div className="pricing-wrapper">
                     <p>{product.title}</p>
@@ -82,15 +83,14 @@ const SideBar: React.FC<SideBarProps> = ({
         <div className="total-wrapper">
           <p>Total: {Math.round(subtotal * 100) / 100}€</p>
           {products.length > 0 && (
-            <button
+            <Link to={'/cart'}
               className="custom-btn btn-2"
               onClick={() => {
-                handleNavigation("/cart");
                 onCloseSideBar(false);
               }}
             >
               Go to cart
-            </button>
+            </Link>
           )}
         </div>
       </aside>

@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/css/checkout.css";
 import StripeProvider from "./StripeProvider";
-const CheckOut: React.FC = () => {
-  const [buyStatus, setBuyStatus] = useState(false);
-  if (buyStatus) {
-    localStorage.removeItem("cart");
-    const url = `${window.location.origin}`;
-    window.location.href = url;
-  }
+import SucessPayment from "./SucessPayment";
+import { cartProductSchema } from "../interfaces";
 
+interface CheckoutProps{
+  onChangeCartProducts: (products: cartProductSchema[]) => void;
+}
+const CheckOut: React.FC<CheckoutProps> = ({onChangeCartProducts}) => {
+  const [buyStatus, setBuyStatus] = useState(false);
+ 
+  useEffect(()=>{
+    
+    if (buyStatus) {
+
+      onChangeCartProducts([]);
+      localStorage.removeItem("cart");
+    }
+  },[buyStatus,onChangeCartProducts])
   return (
     <>
       <h1 id="checkout-title">Checkout</h1>
@@ -32,6 +41,7 @@ const CheckOut: React.FC = () => {
           <StripeProvider onChangeBuyStatus={setBuyStatus} />
         </div>
       </div>
+      {buyStatus && <SucessPayment />}
     </>
   );
 };

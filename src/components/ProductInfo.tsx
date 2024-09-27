@@ -14,7 +14,6 @@ interface ProductInfoProps {
 const ProductInfo: React.FC<ProductInfoProps> = ({cartProducts, onChangeCartProducts}) => {
     const { productID } = useParams<{ productID: string }>();
     const [product, setProduct] = useState<productSchema | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
     UpdateLocalStorage({cartProducts})
 
     useEffect(() => {
@@ -22,16 +21,11 @@ const ProductInfo: React.FC<ProductInfoProps> = ({cartProducts, onChangeCartProd
             const productData = getProduct(productID);
             productData.then(product => {
                 setProduct(product)
-                setLoading(false)
             });
-        } else {
-            setLoading(false);
         }
     }, [productID]);
     
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+
 
     
     const handleAddProduct = (product: productSchema) => {

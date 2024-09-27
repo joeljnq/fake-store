@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { productSchema, cartProductSchema } from "../interfaces";
 import add from '../assets/images/add.svg'
 import '../assets/css/product.css'
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface ProductProps {
     product: productSchema
@@ -12,11 +12,6 @@ interface ProductProps {
 
 
 const Product: React.FC<ProductProps> = ({ product, cartProducts, onChangeCartProducts }) => {
-    const navigate = useNavigate();
-    const handleProductInfo = (productID: number) => {
-        const url = `/product/${productID}`;
-        navigate(url)
-    }
     const [isHovered, setIsHovered] = useState<boolean>(false)
 
     const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -57,7 +52,9 @@ const Product: React.FC<ProductProps> = ({ product, cartProducts, onChangeCartPr
             <div className='image-wrapper' onPointerEnter={()=>setIsHovered(true) } onPointerLeave={()=>setIsHovered(false)}>
                {isHovered  &&  !isMobile  && <img onClick={() => handleAddProduct(product)} src={add} className='add-image'></img>}
                {isMobile && <img onClick={() => handleAddProduct(product)} src={add} className="add-image" />}
-                <img  onClick={() => handleProductInfo(product.id)} src={product.image} alt={product.title} className='product-img' />
+                <Link to={`/product/${product.id}`} className="link-product" > 
+                <img className='product-img' src={product.image} alt={product.title} />
+                </Link>
             </div>
             <p className='product-category'>{product.category}</p>
             <p>{product.title}</p>
