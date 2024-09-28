@@ -1,12 +1,13 @@
 // src/AppRouter.tsx
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from '../components/Layout';
-import App from '../components/App';
-import ProductInfo from '../components/ProductInfo';
-import ShoppingCart from '../components/ShoppingCart';
-import CheckOut from '../components/CheckOut';
+import Home from '../components/Home';
 import { cartProductSchema } from '../interfaces';
+import { lazy } from 'react';
+const Checkout = lazy(()=>import('../components/CheckOut'))
+const ProductInfo = lazy(()=> import('../components/ProductInfo'))
+const ShoppingCart = lazy(()=> import('../components/ShoppingCart'))
 
 const AppRouter: React.FC = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
@@ -19,6 +20,8 @@ const AppRouter: React.FC = () => {
 
   return (
     <Router>
+        <Suspense fallback={null}>
+
       <Routes>
         <Route
           path="/"
@@ -34,12 +37,14 @@ const AppRouter: React.FC = () => {
             />
           }
         >
-          <Route index element={<App cartProducts={cartProducts} onChangeCartProducts={setCartProducts} />} />
+          <Route index element={<Home cartProducts={cartProducts} onChangeCartProducts={setCartProducts} />} />
           <Route path="/product/:productID" element={<ProductInfo cartProducts={cartProducts} onChangeCartProducts={setCartProducts} />} />
           <Route path="/cart" element={<ShoppingCart products={cartProducts} onChangeCartProducts={setCartProducts} />} />
-          <Route path="/checkout" element={<CheckOut  onChangeCartProducts={setCartProducts}/>} />
+          <Route path="/checkout" element={<Checkout  onChangeCartProducts={setCartProducts}/>} />
         </Route>
       </Routes>
+      </Suspense>
+
     </Router>
   );
 };

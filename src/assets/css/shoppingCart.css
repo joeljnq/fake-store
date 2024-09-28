@@ -1,11 +1,7 @@
-
-.sc-title{
-    cursor: pointer;
-}
-
 #shopping-title{
     width: 100%;
     font-weight: bold;
+    text-align: center;
 }
 .totalPrice-wrapper{
    

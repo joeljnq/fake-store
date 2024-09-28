@@ -7,11 +7,11 @@ import { productSchema, cartProductSchema } from '../interfaces'
 import { UpdateLocalStorage } from '../hooks/UpdateLS'
 import { Link } from 'react-router-dom'
 
-interface appProps{
+interface homeProps{
   cartProducts: cartProductSchema[],
   onChangeCartProducts: (product: cartProductSchema[]) => void
 }
-function App({ cartProducts, onChangeCartProducts }: appProps) {
+const  Home : React.FC <homeProps>= ({ cartProducts, onChangeCartProducts }) => {
   const [products, setProducts] = useState<productSchema[]>([])
   UpdateLocalStorage({ cartProducts })
   const apiURL = import.meta.env.VITE_API_URL
@@ -59,4 +59,4 @@ function App({ cartProducts, onChangeCartProducts }: appProps) {
   )
 }
 
-export default App
+export default Home
