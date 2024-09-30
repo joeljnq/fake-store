@@ -3,7 +3,10 @@ import React, { Suspense, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from '../components/Layout';
 import Home from '../components/Home';
+import NotFound from '../components/NotFound'
 import { cartProductSchema } from '../interfaces';
+import { UpdateLocalStorage } from '../hooks/UpdateLS'
+
 import { lazy } from 'react';
 const Checkout = lazy(()=>import('../components/CheckOut'))
 const ProductInfo = lazy(()=> import('../components/ProductInfo'))
@@ -12,6 +15,7 @@ const ShoppingCart = lazy(()=> import('../components/ShoppingCart'))
 const AppRouter: React.FC = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
   const [cartProducts, setCartProducts] = useState<cartProductSchema[]>(JSON.parse(localStorage.getItem('cart') || '[]'))
+  UpdateLocalStorage({ cartProducts })
 
 
   const handleSideBar = (status: boolean) => {
@@ -42,6 +46,7 @@ const AppRouter: React.FC = () => {
           <Route path="/cart" element={<ShoppingCart products={cartProducts} onChangeCartProducts={setCartProducts} />} />
           <Route path="/checkout" element={<Checkout  onChangeCartProducts={setCartProducts}/>} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
       </Suspense>
 

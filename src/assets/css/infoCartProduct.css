@@ -52,6 +52,11 @@
     margin-right: 10px;
 }
 
+.price-average{
+    text-align: center;
+    width: 10%;
+}
+
 @media screen and (max-width : 768px) {
     .infoProduct-wrapper{
         flex-direction: column;
