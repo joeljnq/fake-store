@@ -4,7 +4,6 @@ import imageMain from '../assets/images/img-main1.webp'
 import Product from './Product'
 import { getProducts } from '../services/products'
 import { productSchema, cartProductSchema } from '../interfaces'
-import { UpdateLocalStorage } from '../hooks/UpdateLS'
 import { Link } from 'react-router-dom'
 
 interface homeProps{
@@ -13,7 +12,6 @@ interface homeProps{
 }
 const  Home : React.FC <homeProps>= ({ cartProducts, onChangeCartProducts }) => {
   const [products, setProducts] = useState<productSchema[]>([])
-  UpdateLocalStorage({ cartProducts })
   const apiURL = import.meta.env.VITE_API_URL
   useEffect(() => {
    const allProducts = getProducts()

@@ -7,33 +7,31 @@ interface infoCartProductProps {
     onChangeProducts: (product: cartProductSchema[]) => void
     idx: number
 }
-
+const updateCart = (updatedProducts: cartProductSchema[], onChangeProducts: (product:cartProductSchema[])=>void) => {
+    localStorage.setItem('cart', JSON.stringify(updatedProducts));
+    onChangeProducts(updatedProducts);
+};
 
 const InfoCartProduct: React.FC<infoCartProductProps> = ({ product, idx , onChangeProducts}) => {
+    const cartProducts:cartProductSchema[] = JSON.parse(localStorage.getItem('cart') || '[]')
     
     const [productQuantity, setProductQuantity] = useState<number>(product.quantity)
     useEffect(() => {
-        const cartProducts = JSON.parse(localStorage.getItem('cart') || '[]')
         cartProducts[idx] = { ...product, quantity: productQuantity }
-        updateCart(cartProducts)
-    }, [productQuantity,idx])
-    const updateCart = (updatedProducts: cartProductSchema[]) => {
-        localStorage.setItem('cart', JSON.stringify(updatedProducts));
-        onChangeProducts(updatedProducts);
-    };
-    const handleLessProducts = () => {
+        updateCart(cartProducts,onChangeProducts)
+    }, [productQuantity,idx,onChangeProducts])
+    
+    const handleLessProducts =() => {
         setProductQuantity(prevQuantity => Math.max( prevQuantity - 1,1));
-
     }
     const handleMoreProducts = () =>{
-        setProductQuantity(productQuantity + 1)
+        setProductQuantity(prevState=> prevState + 1)
     }
 
     const handleRemoveProduct = () => {
-        const cartProducts : cartProductSchema[] = JSON.parse(localStorage.getItem('cart') || '[]')
         cartProducts.splice(idx,1)
-        updateCart(cartProducts)
-    }   
+        updateCart(cartProducts,onChangeProducts)
+    } 
 
 
 
