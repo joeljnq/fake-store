@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import '../assets/css/NavBar.css'
 import cartIcon from "../assets/images/shopping-cart.svg";
 import { Link} from "react-router-dom";
@@ -9,9 +10,17 @@ interface NavBarProps {
 
 const NavBar: React.FC<NavBarProps> = ({ onHandleSideBar, quantityProducts,  }) => {
     const [isTop, setIsTop] = useState<boolean>(true);
+    const location = useLocation();
+    
   useEffect(() => {
+    if (location.pathname !== '/') {
+      setIsTop(false);
+      return    
+      
+    }
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
+   
       setIsTop(scrollPosition < 100);
     };
 
@@ -20,7 +29,7 @@ const NavBar: React.FC<NavBarProps> = ({ onHandleSideBar, quantityProducts,  }) 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [location.pathname]);
     const handleNameStore = () => {
 
         if(window.location.pathname === '/'){
