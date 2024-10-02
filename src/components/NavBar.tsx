@@ -13,11 +13,15 @@ const NavBar: React.FC<NavBarProps> = ({ onHandleSideBar, quantityProducts,  }) 
     const location = useLocation();
     
   useEffect(() => {
+    
     if (location.pathname !== '/') {
+      
       setIsTop(false);
       return    
       
     }
+    setIsTop(true);
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
    
